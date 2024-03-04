@@ -106,7 +106,7 @@ class _MainPageState extends State<MainPage> {
         }
         //page = HomePage(
         //    borrowedItems: appState.sharedPreferencesProvider.getBorrowedItems());
-        page = HomePage(borrowedItems: tempitems);
+        page = HomePage(borrowedItems: appState.sharedPreferencesProvider.getBorrowedItems());
         break;
       case 1:
         page = Placeholder(); // Info

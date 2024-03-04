@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:medtborrowsys/main.dart';
-import 'package:medtborrowsys/helpers.dart';
 import 'package:medtborrowsys/sharedprefsprovider.dart';
 
 class CreateMenu extends StatefulWidget {
-  const CreateMenu({Key? key}) : super(key: key);
+  const CreateMenu({super.key});
 
   @override
   CreateMenuState createState() => CreateMenuState();
@@ -69,11 +68,6 @@ class CreateMenuState extends State<CreateMenu> {
                   icon: const Icon(Icons.arrow_downward),
                   iconSize: 24,
                   elevation: 16,
-                  style: const TextStyle(color: Colors.deepPurple),
-                  underline: Container(
-                    height: 2,
-                    color: Colors.deepPurpleAccent,
-                  ),
                   onChanged: (IconData? newValue) {
                     setState(() {
                       icon = newValue;
@@ -92,6 +86,30 @@ class CreateMenuState extends State<CreateMenu> {
           ),
         ),
       ),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: const Text("Abbrechen"),
+        ),
+        TextButton(
+          onPressed: () {
+            if (_formKey.currentState!.validate()) {
+              List<BorrowedItem> items = appState.sharedPreferencesProvider.getBorrowedItems();
+              items.add(BorrowedItem(
+                name: nameController.text,
+                description: descriptionController.text,
+                icon: icon ?? Icons.help_outline,
+              ));
+              appState.sharedPreferencesProvider.setBorrowedItems(items);
+              appState.changesMade();
+              Navigator.of(context).pop();
+            }
+          },
+          child: const Text("Erstellen"),
+        ),
+      ],
     );
   }
 }
