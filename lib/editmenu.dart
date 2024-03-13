@@ -584,6 +584,40 @@ class EditMenuState extends State<EditMenu> {
           child: const Text("Abbrechen"),
         ),
         TextButton(
+            onPressed: () {
+              showDialog<String>(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                        title: const Text("Löschen"),
+                        content: const Text(
+                            "Sind Sie sicher, dass Sie diesen Eintrag löschen möchten?"),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text("Abbrechen")),
+                          TextButton(
+                              onPressed: () {
+                                appState.selectedIndex = 0;
+                                List<BorrowedItem> items = appState
+                                    .sharedPreferencesProvider
+                                    .getBorrowedItems();
+                                int index = items.indexWhere((element) =>
+                                    element.id == widget.borrowedItem.id);
+                                items.removeAt(index);
+                                appState.sharedPreferencesProvider
+                                    .setBorrowedItems(items);
+                                appState.changesMade();
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text("Löschen")),
+                        ],
+                      ));
+            },
+            child: const Text("Löschen")),
+        TextButton(
           onPressed: () {
             if (_formKey.currentState!.validate()) {
               List<BorrowedItem> items =
