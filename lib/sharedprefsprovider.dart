@@ -56,6 +56,68 @@ class BorrowedItem {
   }
 }
 
+class Teacher {
+  String id;
+  String name;
+  String short;
+  String email;
+
+  Teacher({String? id, this.name = "", this.short = "", this.email = ""})
+      : id = id ?? const Uuid().v4();
+  
+  String toJson() {
+    Map<String, dynamic> data = {
+      'id': id,
+      'name': name,
+      'short': short,
+      'email': email,
+    };
+
+    return jsonEncode(data);
+  }
+
+  factory Teacher.fromJson(String json) {
+    Map<String, dynamic> data = jsonDecode(json);
+    return Teacher(
+      id: data['id'],
+      name: data['name'],
+      short: data['short'],
+      email: data['email'],
+    );
+  }
+}
+
+class Student {
+  String id;
+  String name;
+  String classroom;
+  String email;
+
+  Student({String? id, this.name = "", this.classroom = "", this.email = ""})
+      : id = id ?? const Uuid().v4();
+  
+  String toJson() {
+    Map<String, dynamic> data = {
+      'id': id,
+      'name': name,
+      'classroom': classroom,
+      'email': email,
+    };
+
+    return jsonEncode(data);
+  }
+
+  factory Student.fromJson(String json) {
+    Map<String, dynamic> data = jsonDecode(json);
+    return Student(
+      id: data['id'],
+      name: data['name'],
+      classroom: data['classroom'],
+      email: data['email'],
+    );
+  }
+}
+
 class SharedPreferencesProvider extends ChangeNotifier {
   SharedPreferencesProvider._privateConstructor();
 
@@ -139,6 +201,44 @@ class SharedPreferencesProvider extends ChangeNotifier {
       }
     }
     _sharedPreferences.setStringList('borroweditems', output);
+  }
+
+  List<Teacher> getTeachers() {
+    List<Teacher> output = [];
+    final data = _sharedPreferences.getStringList('teachers') ?? [];
+    for (var teacher in data) {
+      output.add(Teacher.fromJson(teacher));
+    }
+    return output;
+  }
+
+  void setTeachers(List<Teacher> teachers) {
+    List<String> output = [];
+    for (var teacher in teachers) {
+      if (teacher.id != "") {
+        output.add(teacher.toJson());
+      }
+    }
+    _sharedPreferences.setStringList('teachers', output);
+  }
+
+  List<Student> getStudents() {
+    List<Student> output = [];
+    final data = _sharedPreferences.getStringList('students') ?? [];
+    for (var student in data) {
+      output.add(Student.fromJson(student));
+    }
+    return output;
+  }
+
+  void setStudents(List<Student> students) {
+    List<String> output = [];
+    for (var student in students) {
+      if (student.id != "") {
+        output.add(student.toJson());
+      }
+    }
+    _sharedPreferences.setStringList('students', output);
   }
 
   bool getConfirmDelete() {

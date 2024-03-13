@@ -2,10 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:medtborrowsys/detail_menu.dart';
 import 'package:provider/provider.dart';
 import 'package:medtborrowsys/helpers.dart';
 import 'package:medtborrowsys/settings.dart';
 import 'package:medtborrowsys/homepage.dart';
+import 'package:medtborrowsys/infopage.dart';
 
 // Shared Preferences Provider
 import 'package:medtborrowsys/sharedprefsprovider.dart';
@@ -100,23 +102,17 @@ class _MainPageState extends State<MainPage> {
     switch (appState.selectedIndex) {
       // Sidebar Navigation
       case 0:
-        List<BorrowedItem> tempitems = [];
-        for (var i = 0; i < 50; i++) {
-          tempitems.add(BorrowedItem(name: "Test ${i + 1}", description: "Testdescription", borrower: "Testborrower", borrowing: "Testborrowing", returnDate: DateTime.now(), borrowDate: DateTime.now(), icon: Icons.access_alarm, isBorrowed: false, id: "Testid"));
-        }
-        //page = HomePage(
-        //    borrowedItems: appState.sharedPreferencesProvider.getBorrowedItems());
-        page = HomePage(borrowedItems: appState.sharedPreferencesProvider.getBorrowedItems());
+        page = HomePage(borrowedItems: appState.sharedPreferencesProvider.getBorrowedItems().where((element) => !element.isBorrowed).toList());
         break;
       case 1:
-        page = Placeholder(); // Info
+        page = const Infopage(); // Info
         break;
       default:
         try {
           //page = ClassRoomPage(
           //    classroom: appState.sharedPreferencesProvider
           //        .getClassRooms()[appState.selectedIndex - 2]);
-          page = Placeholder();
+          page = Scaffold(body: DetailMenu(borrowedItem: appState.sharedPreferencesProvider.getBorrowedItems().where((element) => element.isBorrowed).toList()[appState.selectedIndex - 2]));
         } catch (e) {
           throw Exception("Item not found");
         }

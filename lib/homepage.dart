@@ -43,11 +43,6 @@ class HomePageState extends State<HomePage> {
                 children: [
                   Text("MEDT borrow SYS", style: TextStyle(fontSize: 40)),
                   Text("by Benedikt Werner aka GameTec_live"),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text("Erstellen sie ein Element um zu starten",
-                      style: TextStyle(fontSize: 30))
                 ],
               ),
             )
@@ -65,8 +60,7 @@ class HomePageState extends State<HomePage> {
                   child: ListTile(
                     title: Row(
                       children: [
-                        borrowedItem.returnDate?.isBefore(DateTime.now()) ??
-                                false
+                        borrowedItem.isDefect || borrowedItem.notes.isNotEmpty
                             ? Badge(
                                 label: const Text("!"),
                                 child: Icon(borrowedItem.icon))
