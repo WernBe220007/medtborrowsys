@@ -148,10 +148,39 @@ class DetailMenuState extends State<DetailMenu> {
                         width: 8,
                       ),
                       Expanded(
-                        child: Text(
-                            "${appState.sharedPreferencesProvider.getTeachers().firstWhere((element) => element.id == widget.borrowedItem.borrower, orElse: () => Teacher(name: "Nicht gefunden")).name} (${appState.sharedPreferencesProvider.getTeachers().firstWhere((element) => element.id == widget.borrowedItem.borrower, orElse: () => Teacher(name: "Nicht gefunden")).short})",
-                            maxLines: 5,
-                            overflow: TextOverflow.ellipsis),
+                        child: TextButton(
+                          onPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: const Text("Lehrer"),
+                                    content: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text("Name: ${appState.sharedPreferencesProvider.getTeachers().firstWhere((element) => element.id == widget.borrowedItem.borrower, orElse: () => Teacher(name: "Nicht gefunden")).name}"),
+                                        Text("Kürzel: ${appState.sharedPreferencesProvider.getTeachers().firstWhere((element) => element.id == widget.borrowedItem.borrower, orElse: () => Teacher(name: "Nicht gefunden")).short}"),
+                                        Text("E-Mail: ${appState.sharedPreferencesProvider.getTeachers().firstWhere((element) => element.id == widget.borrowedItem.borrower, orElse: () => Teacher(name: "Nicht gefunden")).email}"),
+                                      ],
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text("Schließen"))
+                                    ],
+                                  );
+                                });
+                          },
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                                "${appState.sharedPreferencesProvider.getTeachers().firstWhere((element) => element.id == widget.borrowedItem.borrower, orElse: () => Teacher(name: "Nicht gefunden")).name} (${appState.sharedPreferencesProvider.getTeachers().firstWhere((element) => element.id == widget.borrowedItem.borrower, orElse: () => Teacher(name: "Nicht gefunden")).short})",
+                                maxLines: 5,
+                                overflow: TextOverflow.ellipsis),
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -167,10 +196,39 @@ class DetailMenuState extends State<DetailMenu> {
                         width: 8,
                       ),
                       Expanded(
-                        child: Text(
-                            "${appState.sharedPreferencesProvider.getStudents().firstWhere((element) => element.id == widget.borrowedItem.borrowing, orElse: () => Student(name: "Nicht gefunden", classroom: "Nicht gefunden")).name} (${appState.sharedPreferencesProvider.getStudents().firstWhere((element) => element.id == widget.borrowedItem.borrowing, orElse: () => Student(name: "Nicht gefunden", classroom: "")).classroom})",
-                            maxLines: 5,
-                            overflow: TextOverflow.ellipsis),
+                        child: TextButton(
+                          onPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: const Text("Schüler"),
+                                    content: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text("Name: ${appState.sharedPreferencesProvider.getStudents().firstWhere((element) => element.id == widget.borrowedItem.borrowing, orElse: () => Student(name: "Nicht gefunden", classroom: "Nicht gefunden")).name}"),
+                                        Text("Klasse: ${appState.sharedPreferencesProvider.getStudents().firstWhere((element) => element.id == widget.borrowedItem.borrowing, orElse: () => Student(name: "Nicht gefunden", classroom: "")).classroom}"),
+                                        Text("E-Mail: ${appState.sharedPreferencesProvider.getStudents().firstWhere((element) => element.id == widget.borrowedItem.borrowing, orElse: () => Student(name: "Nicht gefunden", classroom: "")).email}"),
+                                      ],
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text("Schließen"))
+                                    ],
+                                  );
+                                });
+                          },
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                                "${appState.sharedPreferencesProvider.getStudents().firstWhere((element) => element.id == widget.borrowedItem.borrowing, orElse: () => Student(name: "Nicht gefunden", classroom: "Nicht gefunden")).name} (${appState.sharedPreferencesProvider.getStudents().firstWhere((element) => element.id == widget.borrowedItem.borrowing, orElse: () => Student(name: "Nicht gefunden", classroom: "")).classroom})",
+                                maxLines: 5,
+                                overflow: TextOverflow.ellipsis),
+                          ),
+                        ),
                       ),
                     ],
                   ),
