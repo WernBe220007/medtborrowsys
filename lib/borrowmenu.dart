@@ -312,7 +312,7 @@ class BorrowMenuState extends State<BorrowMenu> {
             ),
           ]))),
       actions: [
-        ElevatedButton(
+        TextButton(
           onPressed: () {
             Navigator.of(context).pop();
           },

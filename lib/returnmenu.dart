@@ -94,7 +94,7 @@ class ReturnMenuState extends State<ReturnMenu> {
             ),
           ]))),
       actions: [
-        ElevatedButton(
+        TextButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
