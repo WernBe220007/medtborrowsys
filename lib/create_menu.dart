@@ -100,7 +100,7 @@ class CreateMenuState extends State<CreateMenu> {
               items.add(BorrowedItem(
                 name: nameController.text,
                 description: descriptionController.text,
-                icon: icon ?? Icons.help_outline,
+                icon: icon ?? Icons.devices_other,
               ));
               appState.sharedPreferencesProvider.setBorrowedItems(items);
               appState.changesMade();

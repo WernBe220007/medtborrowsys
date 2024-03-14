@@ -188,7 +188,7 @@ class DetailMenuState extends State<DetailMenu> {
                       Expanded(
                         child: Text(
                             DateFormat('dd.MM.yyyy')
-                                .format(widget.borrowedItem.borrowDate!),
+                                .format(widget.borrowedItem.borrowDate ?? DateTime.now()),
                             maxLines: 5,
                             overflow: TextOverflow.ellipsis),
                       ),
@@ -207,7 +207,7 @@ class DetailMenuState extends State<DetailMenu> {
                       ),
                       Expanded(
                         child: Text(
-                            "${DateFormat('dd.MM.yyyy').format(widget.borrowedItem.returnDate!)} (in ${widget.borrowedItem.returnDate!.difference(DateTime.now()).inDays} Tagen)",
+                            "${DateFormat('dd.MM.yyyy').format(widget.borrowedItem.returnDate ?? DateTime.now())} (in ${(widget.borrowedItem.returnDate ?? DateTime.now()).difference(DateTime.now()).inDays} Tagen)",
                             maxLines: 5,
                             overflow: TextOverflow.ellipsis),
                       ),
